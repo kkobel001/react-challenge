@@ -45,7 +45,9 @@ let theme = createTheme({
 theme = createTheme(theme, {
   typography: {
     fontSize: 16,
-    fontWeightLight: 300,
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightBold: 700,
     h1: {
       fontWeight: 700,
       lineHeight: 1.2,
@@ -69,6 +71,18 @@ theme = createTheme(theme, {
     },
     h6: {
       fontSize: '1.44rem',
+    },
+    h7: {
+      fontSize: '4rem',
+      lineHeight: '4,8rem',
+      letterSpacing: '-1',
+      fontWeight: 700,
+    },
+    h8: {
+      fontSize: '1,2rem',
+      lineHeight: '1,8rem',
+      letterSpacing: '-1',
+      opacity: '50%',
     },
     body1: {
       fontSize: '1.2rem',
