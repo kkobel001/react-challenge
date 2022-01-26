@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
-import { Typography, Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import imgNoContent from './../../assets/no_content.png';
 

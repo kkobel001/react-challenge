@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { Button } from '../ui';
 import { Grid, Typography } from '@mui/material';
+
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Zadanie 1/Button',
   component: Button,
-  description: 'ahaha',
+  
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     variant: {
@@ -16,11 +16,11 @@ export default {
       },
       options: ['contained', 'outlined'],
     },
-    size: {
+    effect: {
       control: {
         type: 'radio',
       },
-      options: ['large', 'medium', 'small'],
+      options: ['main', 'medium', 'small'],
     },
     color: {
       control: {
@@ -41,8 +41,8 @@ export default {
 const Template = ({ label, ...args }) => <Button {...args}>{label}</Button>;
 const All = () => (
   <>
-    <Grid container>
-      <Grid item xs={12} sx={{ mb: 2 }}>
+    <Grid >
+      <Grid item xs={12} sx={{ mb: 2 }}  container spacing={1}>
         <Typography variant={'subheading'}>Contained</Typography>
       </Grid>
       <Button variant={'contained'} color={'primary'}>
