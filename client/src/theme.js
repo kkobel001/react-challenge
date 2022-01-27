@@ -44,7 +44,8 @@ let theme = createTheme({
 
 theme = createTheme(theme, {
   typography: {
-    fontSize: 16,
+    fontBigSize: '20px',
+    fontMedium: '15px',
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightBold: 700,
