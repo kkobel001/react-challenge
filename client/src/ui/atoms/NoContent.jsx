@@ -25,7 +25,7 @@ export const NoContent = () => {
         image={imgNoContent} 
         alt="noContent"
       />
-      <Typography variant="h8" color="textPrimary" >Brak danych do wyświetlnie</Typography>
+      <Typography variant="h8" color="textPrimary">Brak danych do wyświetlnie</Typography>
     </WrapperNoContent>
   )
 };

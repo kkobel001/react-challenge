@@ -1,9 +1,8 @@
 import React from 'react';
 import { Button } from '../ui';
 import { Grid, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -18,7 +17,7 @@ export default {
       },
       options: ['contained', 'outlined'],
     },
-    effect: {
+    size: {
       control: {
         type: 'radio',
       },
@@ -36,6 +35,18 @@ export default {
         type: 'boolean',
       },
     },
+    startIcon: {
+      control: {
+        default: false,
+        type: 'boolean',
+      },
+    },
+    endIcon: {
+      control: {
+        default: false,
+        type: 'boolean',
+    },
+  },
   },
 };
 
@@ -43,20 +54,15 @@ export default {
 const Template = ({ label, ...args }) => <Button {...args}>{label}</Button>;
 const All = () => (
   <>
-    <Grid >
-    <Typography  mr={3} variant={'subheading'}>Primary</Typography>
+    <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid item xs={12} sx={{ mb: 2 }} >
       <Typography variant={'subheading'}>Contained</Typography>
       </Grid>
-    <Grid    item
-      sx={{ 
-          backgroundColor: 'primary',
-          textTransform: 'capitalize', 
-       }}>
-      <Button variant={'contained'}>Button</Button>
-      <Button variant={'contained'} startIcon={<AddIcon />}> Button</Button>
-      <Button variant={'contained'} endIcon={<KeyboardArrowRightIcon />}> Button</Button>
-      <Button variant={'contained'}> <KeyboardArrowRightIcon /></Button>
+    <Grid    item>
+      <Button variant={'contained'}> Button</Button>
+      <Button variant={'contained'} startIcon> Button</Button>
+      <Button variant={'contained'} endIcon > Button</Button>
+      <Button variant={'contained'} sx={ {minWidth: '20px'}} > <KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}}/></Button>
     </Grid>
     </Grid>
     <Grid spacing={6}>
@@ -68,9 +74,9 @@ const All = () => (
           textTransform: 'capitalize', 
        }}>
           <Button variant={'outlined'}>Button</Button>
-          <Button variant={'outlined'} startIcon={<AddIcon />}> Button</Button>
-          <Button variant={'outlined'} endIcon={<KeyboardArrowRightIcon />}> Button</Button>
-          <Button variant={'outlined'}> <KeyboardArrowRightIcon /></Button>
+          <Button variant={'outlined'} startIcon> Button</Button>
+          <Button variant={'outlined'} endIcon> Button</Button>
+          <Button variant={'outlined'} sx={ {minWidth: '34px'}}> <KeyboardArrowRightIcon sx={{height:'20px', width: '20px'}} /></Button>
       </Grid>
     </Grid>
     <Grid spacing={6}>
@@ -79,19 +85,15 @@ const All = () => (
       </Grid>
       <Grid item >
           <Button variant={'contained'} disabled >Button</Button>
-          <Button variant={'contained'} disabled  startIcon={<AddIcon sx={{height:'22px'}} />}> Button</Button>
-          <Button variant={'contained'} disabled endIcon={<KeyboardArrowRightIcon />}> Button</Button>
-          <Button variant={'contained'} disabled > <KeyboardArrowRightIcon sx={{height:'22px'}}/></Button>
+          <Button variant={'contained'} disabled  startIcon > Button</Button>
+          <Button variant={'contained'} disabled endIcon> Button</Button>
+          <Button variant={'contained'} disabled sx={ {minWidth: '34px'}}> <KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}}/></Button>
       </Grid>
       <Grid item mr={3}>
           <Button variant={'outlined'} disabled >Button</Button>
-          <Button variant={'outlined'} disabled startIcon={<AddIcon sx={{fontSize:'22px'}}/>}> Button</Button>
-          <Button variant={'outlined'} disabled endIcon={<KeyboardArrowRightIcon />}> Button</Button>
-          <Button variant={'outlined'} disabled > <KeyboardArrowRightIcon sx={{ textTransform: 'capitalize', 
-    fontWeight: 500,
-    fontSize:'22px',
-    lineHeight: '22px',
-    align:'center',}} /></Button>
+          <Button variant={'outlined'} disabled startIcon> Button</Button>
+          <Button variant={'outlined'} disabled endIcon> Button</Button>
+          <Button variant={'outlined'} disabled  sx={ {minWidth: '34px'}}><KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}} /></Button>
       </Grid>
     
     </Grid>
@@ -110,8 +112,5 @@ Playground.args = {
 export const AllStories = All.bind({});
 
 AllStories.args = {
- ...Playground.args, 
- label :'Nothing',
-
-
+ button :'Nothing',
 };

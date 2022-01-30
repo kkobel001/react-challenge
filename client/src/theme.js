@@ -7,6 +7,10 @@ let theme = createTheme({
   palette: {
     text: {
       primary: '#333',
+      secondary: {
+        color: '#333333',
+        opacity: '25%',
+      },
     },
     type: 'light',
     primary: {
@@ -48,7 +52,7 @@ theme = createTheme(theme, {
     fontMedium: '15px',
     fontWeightLight: 400,
     fontWeightRegular: 500,
-    fontWeightBold: 700,
+    fontWeightBold: 600,
     h1: {
       fontWeight: 700,
       lineHeight: 1.2,
@@ -106,13 +110,13 @@ theme = createTheme(theme, {
           ':hover': {
             borderRadius: 0,
             backgroundColor: 'transparent',
-            color: theme.palette.primary.main,
+            color: theme.palette.primary,
           },
           '&.Mui-selected': {
             borderRadius: 0,
             backgroundColor: 'transparent',
             borderBottom: '2px solid #0666eb',
-            color: theme.palette.primary.main,
+            color: theme.palette.primary,
           },
           '.MuiTypography-root': {
             fontWeight: '500',
@@ -157,6 +161,130 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           borderRadius: theme.shape.borderRadius,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize',
+          fontWeight: 'fontWeightRegular',
+          fontSize: 'fontMedium',
+          lineHeight: '1.3rem',
+          height: '34px',
+          align: 'center',
+          justifyItems: 'center',
+          alignContent: 'center',
+          marginBottom: '10px',
+          marginRight: '20px',
+          fontFamily: 'Inter, sans-serif',
+          padding: '8px 12px',
+          boxShadow: 'none',
+
+          '&:hover,&:active': {
+            boxShadow: 'none',
+          },
+          '&.Mui-disabled': {
+            backgroundColor: theme.palette.text.secondary,
+          },
+        },
+        '	.MuiButton-endIcon': {
+          paddingTop: '6px 0px',
+          margin: '0px',
+          width: '20px',
+          height: '20px',
+          minHeight: 0,
+
+          '.MuiButton-startIcon': {
+            width: '22px',
+            height: '22px',
+          },
+        },
+        '	.MuiButton-outlined': {
+          '&.Mui-disabled': {
+            backgroundColor: theme.palette.background.main,
+          },
+        },
+        containedPrimary: {
+          fontWeight: 'fontWeightRegular',
+          '&:hover,&:active': {
+            backgroundColor: theme.palette.primary.dark,
+          },
+        },
+        containedError: {
+          fontWeight: 'fontWeightRegular',
+          backgroundColor: theme.palette.error.light,
+          color: theme.palette.error.main,
+          '&:hover': {
+            backgroundColor: theme.palette.error.main,
+            color: theme.palette.error.contrastText,
+          },
+          '&:active': {
+            backgroundColor: theme.palette.error.light,
+            color: theme.palette.error.main,
+          },
+        },
+        containedSuccess: {
+          backgroundColor: theme.palette.success.light,
+          color: theme.palette.success.main,
+          fontWeight: 'fontWeightBold',
+          '&:hover': {
+            backgroundColor: theme.palette.success.main,
+            color: theme.palette.success.contrastText,
+          },
+          '&:active': {
+            backgroundColor: theme.palette.success.light,
+            color: theme.palette.success.main,
+          },
+        },
+        containedWarning: {
+          backgroundColor: theme.palette.warning.light,
+          color: theme.palette.warning.dark,
+          fontWeight: 'fontWeightBold',
+          boxShadow: 'none',
+          '&:hover': {
+            backgroundColor: theme.palette.warning.main,
+            color: theme.palette.warning.contrastText,
+          },
+          '&:active': {
+            backgroundColor: theme.palette.warning.light,
+            color: theme.palette.warning.dark,
+          },
+        },
+        outlinedPrimary: {
+          fontWeight: 'fontWeightRegular',
+          backgroundColor: theme.palette.secondary.main,
+          border: 'none',
+          '&:hover,&:active': {
+            backgroundColor: theme.palette.secondary.dark,
+            color: theme.palette.primary.dark,
+            border: 'none',
+          },
+          '&:disabled': {
+            backgroundColor: theme.palette.text.secondary,
+            border: 'none',
+          },
+        },
+        '.MuiButton-outlinedPrimary': {
+          fontWeight: 'fontWeightRegular',
+          border: '1px solid theme.palette.error.main',
+          '&:hover,&:active': {
+            backgroundColor: theme.palette.error.light,
+          },
+        },
+        outlinedSuccess: {
+          fontWeight: 'fontWeightBold',
+          border: '1px solid theme.palette.success.main',
+          '&:hover, &:active': {
+            backgroundColor: theme.palette.success.light,
+          },
+        },
+        outlinedWarning: {
+          fontWeight: 'fontWeightBold',
+          border: '1px solid theme.palette.warning.main ',
+          '&:hover, &:active': {
+            backgroundColor: theme.palette.warning.light,
+          },
         },
       },
     },

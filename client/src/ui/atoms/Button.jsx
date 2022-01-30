@@ -1,19 +1,24 @@
 import * as React from 'react';
 import { Button as MuiButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-export function Button({ children, ...props }) {
-  return <MuiButton 
-   sx={{
-    textTransform: 'capitalize', 
-    fontWeight: 'fontWeightRegular',
-    fontSize:'fontMedium',
-    lineHeight: '1.3rem',
-    height:'34px',
-    align:'center',
-    justifyItems:"center",
-    alignContent:"center",
-    marginTop:'6px',
-    marginBottom:'6px',
-   }} 
-  {...props}>{children}</MuiButton>;
-}
+
+
+export function Button({ endIcon, startIcon, children, ...props }) {
+
+  const emptybutton = children.length === 0;
+
+    return (
+      <MuiButton 
+        startIcon={startIcon && <AddIcon />} 
+        endIcon={endIcon && <KeyboardArrowRightIcon/> }
+        {...props}>
+        { emptybutton ? (<KeyboardArrowRightIcon style={{width:'34px'}}/> ) : (children)  }
+
+      </MuiButton>
+    )
+  }
+
+  
+
