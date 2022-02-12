@@ -12,3 +12,7 @@ export default {
 const Template = ({ label, ...args }) => <Error {...args}>{label}</Error>;
 
 export const Playground = Template.bind({});
+
+Playground.args = {
+  error: {message: 'Network Error'},
+};

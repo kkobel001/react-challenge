@@ -1,15 +1,16 @@
 import React from 'react';
-
 import { Button } from '../ui';
 import { Grid, Typography } from '@mui/material';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Zadanie 1/Button',
   component: Button,
-  description: 'ahaha',
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
+    onClick: { action: 'clicked' },
     variant: {
       control: {
         type: 'radio',
@@ -20,7 +21,7 @@ export default {
       control: {
         type: 'radio',
       },
-      options: ['large', 'medium', 'small'],
+      options: ['main', 'medium', 'small'],
     },
     color: {
       control: {
@@ -34,6 +35,18 @@ export default {
         type: 'boolean',
       },
     },
+    startIcon: {
+      control: {
+        default: false,
+        type: 'boolean',
+      },
+    },
+    endIcon: {
+      control: {
+        default: false,
+        type: 'boolean',
+    },
+  },
   },
 };
 
@@ -41,40 +54,52 @@ export default {
 const Template = ({ label, ...args }) => <Button {...args}>{label}</Button>;
 const All = () => (
   <>
-    <Grid container>
-      <Grid item xs={12} sx={{ mb: 2 }}>
-        <Typography variant={'subheading'}>Contained</Typography>
+    <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid item xs={12} sx={{ mb: 2 }} >
+      <Typography variant={'subheading'}>Contained</Typography>
       </Grid>
-      <Button variant={'contained'} color={'primary'}>
-        Button
-      </Button>
-      <Button variant={'contained'} color={'error'}>
-        Button
-      </Button>
-      <Button variant={'contained'} color={'success'}>
-        Button
-      </Button>
-      <Button variant={'contained'} color={'warning'}>
-        Button
-      </Button>
+    <Grid    item>
+      <Button variant={'contained'}> Button</Button>
+      <Button variant={'contained'} startIcon> Button</Button>
+      <Button variant={'contained'} endIcon > Button</Button>
+      <Button variant={'contained'} sx={ {minWidth: '20px'}} > <KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}}/></Button>
     </Grid>
-    <Grid container sx={{ mt: 5 }}>
-      <Grid item xs={12} sx={{ mb: 2 }}>
+    </Grid>
+    <Grid spacing={6}>
+      <Grid item xs={12} sx={{ mb: 2 }}  >
         <Typography variant={'subheading'}>Outlined</Typography>
       </Grid>
-      <Button variant={'outlined'} color={'primary'}>
-        Button
-      </Button>
-      <Button variant={'outlined'} color={'error'}>
-        Button
-      </Button>
-      <Button variant={'outlined'} color={'success'}>
-        Button
-      </Button>
-      <Button variant={'outlined'} color={'warning'}>
-        Button
-      </Button>
+      <Grid item mr={3}  sx={{ 
+          backgroundColor: 'primary',
+          textTransform: 'capitalize', 
+       }}>
+          <Button variant={'outlined'}>Button</Button>
+          <Button variant={'outlined'} startIcon> Button</Button>
+          <Button variant={'outlined'} endIcon> Button</Button>
+          <Button variant={'outlined'} sx={ {minWidth: '34px'}}> <KeyboardArrowRightIcon sx={{height:'20px', width: '20px'}} /></Button>
+      </Grid>
     </Grid>
+    <Grid spacing={6}>
+      <Grid item xs={12} sx={{ mb: 2 }}  >
+        <Typography variant={'subheading'}>Disabled</Typography>
+      </Grid>
+      <Grid item >
+          <Button variant={'contained'} disabled >Button</Button>
+          <Button variant={'contained'} disabled  startIcon > Button</Button>
+          <Button variant={'contained'} disabled endIcon> Button</Button>
+          <Button variant={'contained'} disabled sx={ {minWidth: '34px'}}> <KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}}/></Button>
+      </Grid>
+      <Grid item mr={3}>
+          <Button variant={'outlined'} disabled >Button</Button>
+          <Button variant={'outlined'} disabled startIcon> Button</Button>
+          <Button variant={'outlined'} disabled endIcon> Button</Button>
+          <Button variant={'outlined'} disabled  sx={ {minWidth: '34px'}}><KeyboardArrowRightIcon  sx={{height:'20px', width: '20px'}} /></Button>
+      </Grid>
+    
+    </Grid>
+    
+
+
   </>
 );
 
@@ -85,3 +110,7 @@ Playground.args = {
 };
 
 export const AllStories = All.bind({});
+
+AllStories.args = {
+ button :'Nothing',
+};
