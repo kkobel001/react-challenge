@@ -2,9 +2,8 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { ActionHeader, Card, Page,Error,Loader, NoContent , Table, Money, LocalizedDate, CategoryCell} from 'ui';
 import { Grid } from '@mui/material';
-// import {Table} from '../ui/molecules/table/Table';
+import {BudgetTableWidget} from 'ui/organisms/BudgetTable.widget';
 import { Button } from 'ui/atoms/Button';
-import { BudgetService } from 'api';
 import { Box } from '@mui/system';
 
 
@@ -56,7 +55,7 @@ export const BudgetPage = () => {
   return (
     <Page title="Budżet">
       <Card
-        title={
+        title={ 
           <ActionHeader
             variant={'h1'}
             title="Budżet"
@@ -67,21 +66,22 @@ export const BudgetPage = () => {
       >
         <Grid container>
           <Grid item xs={12}>
-          {isLoading && ( <Loader />) }
+          {/* {isLoading && ( <Loader />) }
           {isError  && (<Error />)}
           { !data.length  && (<NoContent />) }
           <Table
           headCells={headCells}
           rows={data} 
           getUniqueId={(msg) => msg.id} 
-          deleteRecords={deleteRecords} />
+          deleteRecords={deleteRecords} /> */}
+          <BudgetTableWidget />
         
           </Grid>
         </Grid>
       </Card>
     </Page>
   );
-};
+}; 
 
 
 {/* <Table>

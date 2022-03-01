@@ -17,9 +17,9 @@ export default {
       },
       options: ['contained', 'outlined'],
     },
-    size: {
+    label: {
       control: {
-        type: 'radio',
+        type: '' | 'node',
       },
       options: ['main', 'medium', 'small'],
     },
