@@ -28,14 +28,14 @@ export const Error = ({ error }) => {
       }}
     >
       {
-        error?.message?.includes('Network Error') ? (
+        error ? (
       <WrapperNoContent >
           <StyledImage
             component="img"
             image={ErrorImg} 
             alt="noContent"
           />
-          <Typography variant="h8" color="textPrimary">Wystąpił nieoczekiwany błąd</Typography>
+          <Typography variant="h8" color="textPrimary">Ups! Wystąpił nieoczekiwany błąd. Odśwież stronę.</Typography>
         </WrapperNoContent>  
            ) : null //  TODO in TASK 1
       }

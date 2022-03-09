@@ -13,7 +13,7 @@ const StyledIcon= styled(KeyboardArrowRightIcon)({
 
 export function Button({ endIcon, startIcon, children, ...props }) {
 
-  const emptybutton = children.length === 0;
+    const emptybutton = children === null;
 
     return (
       <MuiButton 
