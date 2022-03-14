@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { LEDGER_QUERY } from 'queryKeys';
 import { LedgerService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
@@ -13,8 +13,18 @@ import { NoContent } from 'ui/atoms/NoContent';
 import { CategoryCell } from 'ui/molecules/CategoryCell';
 import Box from '@mui/material/Box';
 import { theme } from 'theme';
+import { AddNewLedgerRecord } from './AddNewLedgerRecord.modal';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const LedgerWidget = () => {
+  const [isOpen, setOpen]= useState(false);
+  const [isOpenType, setIsOpenType] = useState('')
+
+
+  const handleOpenModal= () => {
+    setIsOpenType(true);
+  }
+
   const tableDefinition = [
     {
       id: 'name',
@@ -36,10 +46,22 @@ export const LedgerWidget = () => {
     {
       id: 'amount',
       label: 'Kwota',
-      renderCell: (row) =>{
-        if ( row.mode === "INCOME" ) return  <Box sx={{color: theme.palette.success.main}}> + <Money inCents= {row.amountInCents}/></Box>;
-        if ( row.mode === "EXPENSE" ) return <Box sx={{color: theme.palette.error.main}}> - <Money inCents= {row.amountInCents}/></Box>;
-      }
+      renderCell: (row) => {
+        if (row.mode === 'INCOME')
+          return (
+            <Box sx={{ color: theme.palette.success.main }}>
+              {' '}
+              + <Money inCents={row.amountInCents} />
+            </Box>
+          );
+        if (row.mode === 'EXPENSE')
+          return (
+            <Box sx={{ color: theme.palette.error.main }}>
+              {' '}
+              - <Money inCents={row.amountInCents} />
+            </Box>
+          );
+      },
     },
   ];
   const queryClient = useQueryClient();
@@ -74,12 +96,11 @@ export const LedgerWidget = () => {
           title="Portfel"
           renderActions={() => (
             <Box>
-              <Button startIcon variant={'contained'}>
+              <Button startIcon variant={'contained'} onClick={()=>handleOpenModal("INCOME")}>
                 Wpłac
               </Button>
-              <Button  variant={'contained'}>
-                - Wyplac 
-              </Button>
+              {/* {showModal && <Modal showModal={showModal} />} */}
+              <Button variant={'contained'} onClick={()=>handleOpenModal("EXPENSE")}> <RemoveIcon /> Wyplac</Button>
             </Box>
           )}
         />
@@ -91,6 +112,8 @@ export const LedgerWidget = () => {
         getUniqueId={(row) => row.id}
         deleteRecords={deleteRecords}
       />
+     <AddNewLedgerRecord showModal={isOpen} handleClose={() => setOpen(false)}/>
+
     </Card>
   );
 };
