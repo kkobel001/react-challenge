@@ -1,41 +1,61 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-// import Box from '@mui/material/Box';
+import React from 'react';
 import { Button } from 'ui/atoms/Button';
-import { CardHeader, CardActions, CardContent } from '@mui/material';
+import {
+  CardHeader,
+  CardActions,
+  CardContent,
+  Card,
+  Modal as MuiModal,
+  Typography,
+} from '@mui/material';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 450,
+};
 
 const Modal = ({
   description,
-  disabled,
+  title,
   children,
   showModal,
-  handleClose,
+  onClose,
   onSubmit,
+  canSubmit = true,
 }) => {
   return (
-    <Modal
+    <MuiModal
       open={showModal}
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
+      onClose={onClose}
     >
-      <CardHeader>{description}</CardHeader>
-      <CardContent>{children}</CardContent>
-      <CardActions>
-        <Button variant={'contained'} disabled={disabled} onSumbit={onSubmit}>
-          Zapisz
-        </Button>
-        <Button variant={'contained'} onClose={handleClose}>
-          Anuluj
-        </Button>
-      </CardActions>
-    </Modal>
+      <Card sx={style}>
+        <CardHeader
+          title={<Typography variant={'h4'}>{title}</Typography>}
+          subheader={description}
+        />
+        <CardContent sx={{ mt: 2, mb: 2 }}>{children}</CardContent>
+        <CardActions
+          sx={{ marginTop: 4, display: 'flex', justifyContent: 'end' }}
+        >
+          <Button
+            variant={'contained'}
+            disabled={!canSubmit}
+            onClick={onSubmit}
+          >
+            Zapisz
+          </Button>
+          <Button onClose={onClose} sa={{ marginRight: '8px' }}>
+            Anuluj
+          </Button>
+        </CardActions>
+      </Card>
+    </MuiModal>
   );
-};
-
-Modal.propTypes = {
-  description: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
-  showModal: PropTypes.func.isRequired,
 };
 
 export default Modal;

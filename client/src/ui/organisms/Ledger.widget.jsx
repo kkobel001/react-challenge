@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { LEDGER_QUERY } from 'queryKeys';
 import { LedgerService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
@@ -17,13 +17,13 @@ import { AddNewLedgerRecord } from './AddNewLedgerRecord.modal';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 export const LedgerWidget = () => {
-  const [isOpen, setOpen]= useState(false);
-  const [isOpenType, setIsOpenType] = useState('')
+  const [isOpen, setOpen] = useState(false);
+  const [isOpenType, setIsOpenType] = useState('');
 
-
-  const handleOpenModal= () => {
-    setIsOpenType(true);
-  }
+  const handleOpenModal = () => {
+    isOpen(true);
+    setIsOpenType(isOpenType);
+  };
 
   const tableDefinition = [
     {
@@ -75,16 +75,10 @@ export const LedgerWidget = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (error) {
-    console.log('message', error.message);
-    return <Error error={error} />;
-  }
-  if (!data?.length) {
-    return <NoContent />;
-  }
+  {isLoading && <Loader />; }
+ {error && <Error error={error} /> }
+ {!isLoading && !error && !data?.length && <NoContent />}
+ 
 
   const deleteRecords = (ids) => mutation.mutate(ids);
 
@@ -96,11 +90,20 @@ export const LedgerWidget = () => {
           title="Portfel"
           renderActions={() => (
             <Box>
-              <Button startIcon variant={'contained'} onClick={()=>handleOpenModal("INCOME")}>
+              <Button
+                startIcon
+                variant={'contained'}
+                onClick={() => handleOpenModal('INCOME')}
+              >
                 Wpłac
               </Button>
-              {/* {showModal && <Modal showModal={showModal} />} */}
-              <Button variant={'contained'} onClick={()=>handleOpenModal("EXPENSE")}> <RemoveIcon /> Wyplac</Button>
+              <Button
+                variant={'contained'}
+                onClick={() => handleOpenModal('EXPENSE')}
+              >
+               <RemoveIcon /> 
+                Wyplac
+              </Button>
             </Box>
           )}
         />
@@ -112,8 +115,11 @@ export const LedgerWidget = () => {
         getUniqueId={(row) => row.id}
         deleteRecords={deleteRecords}
       />
-     <AddNewLedgerRecord showModal={isOpen} handleClose={() => setOpen(false)}/>
-
+      <AddNewLedgerRecord
+        showModal={isOpen}
+        handleClose={() => setOpen(false)}
+        type={isOpenType}
+      />
     </Card>
   );
 };
