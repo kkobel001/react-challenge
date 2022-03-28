@@ -2,24 +2,26 @@ import React from 'react';
 import Modal from '../molecules/modal/Modal';
 import PropTypes from 'prop-types';
 
-
-const transitionKeys ={
-  income:'wpływ',
-  expense:'wydatek',
+const transitionKeys = {
+  income: 'wpływ',
+  expense: 'wydatek',
 };
 
 export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
   const handleClose = () => {
     onClose();
-  }
+  };
   return (
-    <Modal showModal={showModal} onClose={handleClose} title={`Dodaj ${transitionKeys[type.toLowerCase()]}`}/>
+    <Modal
+      showModal={showModal}
+      onClose={handleClose}
+      title={`Dodaj ${transitionKeys[type.toLowerCase()]}`}
+    />
   );
 };
 
-AddNewLedgerRecord.propTypes={
+AddNewLedgerRecord.propTypes = {
   showModal: PropTypes.bool.isRequired,
-  onClose:PropTypes.func.isRequired,
-  type:PropTypes.string,
-
-}
+  onClose: PropTypes.func.isRequired,
+  type: PropTypes.string,
+};

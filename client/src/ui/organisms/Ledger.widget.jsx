@@ -75,11 +75,17 @@ export const LedgerWidget = () => {
     },
   });
 
-  {isLoading && <Loader />; }
- {error && <Error error={error} /> }
- {!isLoading && !error && !data?.length && <NoContent />}
- 
-
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (error) {
+    console.log('message', error.message);
+    return <Error error={error} />;
+  }
+  if (!data?.length) {
+    return <NoContent />;
+  }
+  
   const deleteRecords = (ids) => mutation.mutate(ids);
 
   return (
@@ -101,7 +107,7 @@ export const LedgerWidget = () => {
                 variant={'contained'}
                 onClick={() => handleOpenModal('EXPENSE')}
               >
-               <RemoveIcon /> 
+                <RemoveIcon />
                 Wyplac
               </Button>
             </Box>
