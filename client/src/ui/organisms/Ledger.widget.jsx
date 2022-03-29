@@ -85,7 +85,7 @@ export const LedgerWidget = () => {
   if (!data?.length) {
     return <NoContent />;
   }
-  
+
   const deleteRecords = (ids) => mutation.mutate(ids);
 
   return (
