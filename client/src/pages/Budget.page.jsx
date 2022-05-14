@@ -7,7 +7,7 @@ import { AddNewBudgetRecord } from 'ui/organisms/AddNewBudgetRecord.modal';
 
 export const BudgetPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   return (
     <Page title="Budżet">
       <Card
