@@ -5,11 +5,7 @@ import { Modal, CategoryField, Loader, Error, NoContent } from 'ui';
 import { formatDollarsToCents } from 'utils';
 import { LedgerService, CategoryService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import {
-CATEGORIES_QUERY,
-  BUDGET_QUERY,
-  LEDGER_QUERY,
-} from 'queryKeys';
+import { CATEGORIES_QUERY, BUDGET_QUERY, LEDGER_QUERY } from 'queryKeys';
 import PropTypes from 'prop-types';
 
 const transitionKeys = {
@@ -49,8 +45,7 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
     });
   };
 
-
-    const handleClose = () => {
+  const handleClose = () => {
     onClose();
   };
   return (
@@ -60,24 +55,25 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
       canSubmit={handleSubmit(onSubmit)}
       title={`Dodaj ${transitionKeys[type.toLowerCase()]}`}
     >
-    { isLoading && <Loader />}
-    { error && <Error error={error} />}
-    { !isLoading && !error && !categories?.length ? (
-      'Wszystkie kategorie są przypisane do budetu.Aby zredefiniowac usuń jeden z wpisów.' 
-
-    ): (
-      <Box component="form" autoComplete='off'>
-        <Controller
+      {isLoading && <Loader />}
+      {error && <Error error={error} />}
+      {!isLoading && !error && !categories?.length ? (
+        'Wszystkie kategorie są przypisane do budetu.Aby zredefiniowac usuń jeden z wpisów.'
+      ) : (
+        <Box component="form" autoComplete="off">
+          <Controller
             name="amount"
             control={control}
             defaultValue=""
             rules={{
-              validate:(field) =>{if(!field.toString().trim()){
-                return 'Nazwa nie moze byc pusta'
-              }}
+              validate: (field) => {
+                if (!field.toString().trim()) {
+                  return 'Nazwa nie moze byc pusta';
+                }
+              },
             }}
-            render={({field: { onChange, value }, fieldState: {error} }) => (
-                <TextField
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
                 margin={'normal'}
                 type="number"
                 label="Nazwa"
@@ -85,66 +81,68 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
                 onChange={onChange}
                 error={!!error}
                 helperText={error ? error.message : null}
-                />
-             )}
-             />
-             <Controller
-                name="amount"
-                control={control}
-                defaultValue=""
-                
-                rules={{
-                  setValueAs:(value) => value.trim(),
-                      required: {
-                        value: true,
-                        message: 'Kwota nie moze byc pusta',
-                      }, 
-                       min: {
-                        value : 0,
-                        message:'Kwota musi byc większa niz 0'
-                      },
-                      max:{
-                        value:1000000,
-                        message: ' Kwota nie moze byc wieksza niz 1000000'
-                      },
-                }}
-                render={({field: { onChange, value }, fieldState: {error} }) => (
-                  <TextField
+              />
+            )}
+          />
+          <Controller
+            name="amount"
+            control={control}
+            defaultValue=""
+            rules={{
+              setValueAs: (value) => value.trim(),
+              required: {
+                value: true,
+                message: 'Kwota nie moze byc pusta',
+              },
+              min: {
+                value: 0,
+                message: 'Kwota musi byc większa niz 0',
+              },
+              max: {
+                value: 1000000,
+                message: ' Kwota nie moze byc wieksza niz 1000000',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                margin={'normal'}
+                type="number"
+                label="Kwota"
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
+          {type === 'EXPENSE' && (
+            <Controller
+              name="categoryId"
+              control={control}
+              defaultValue=""
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <CategoryField
                   margin={'normal'}
-                  type="number"
-                  label="Kwota"
+                  categories={categories}
                   value={value}
                   onChange={onChange}
                   error={!!error}
                   helperText={error ? error.message : null}
-                  />
-               )}
-               />
-               {type === 'EXPENSE' && (
-                 <Controller
-                    name='categoryId'
-                    control={control}
-                    defaultValue=""
-                    render={({field:{onChange,value}, fieldState:{error},}) => (
-                        <CategoryField
-                          margin={'normal'}
-                          categories={categories}
-                          value={value}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error ? error.message : null}
-                          />
-                    )}
-                    rules={{
-                      required : {
-                        value: true,
-                        message:'Wybierz kategorie',
-                        },
-                      }}
                 />
-                )}
-       </Box>   
-      )}  
+              )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Wybierz kategorie',
+                },
+              }}
+            />
+          )}
+        </Box>
+      )}
     </Modal>
   );
 };
