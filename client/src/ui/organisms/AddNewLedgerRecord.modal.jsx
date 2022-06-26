@@ -5,7 +5,7 @@ import { Modal, CategoryField, Loader, Error, NoContent } from 'ui';
 import { formatDollarsToCents } from 'utils';
 import { LedgerService, CategoryService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { CATEGORIES_QUERY, BUDGET_QUERY, LEDGER_QUERY } from 'queryKeys';
+import { CATEGORIES_QUERY, BUDGET_QUERY, LEDGER_QUERY, SUMMARY_QUERY } from 'queryKeys';
 import PropTypes from 'prop-types';
 
 const transitionKeys = {
@@ -32,6 +32,8 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
       onSuccess: async () => {
         await queryClient.refetchQueries([LEDGER_QUERY]);
         await queryClient.refetchQueries([BUDGET_QUERY]);
+        await queryClient.refetchQueries([SUMMARY_QUERY]);
+
         handleClose();
       },
     },
