@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LEDGER_QUERY, BUDGET_QUERY } from 'queryKeys';
+import { LEDGER_QUERY, BUDGET_QUERY, SUMMARY_QUERY } from 'queryKeys';
 import { LedgerService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Money } from 'ui/atoms/Money';
@@ -73,6 +73,8 @@ export const LedgerWidget = () => {
     onSuccess: async () => {
       await queryClient.refetchQueries([LEDGER_QUERY]);
       await queryClient.refetchQueries([BUDGET_QUERY]);
+      await queryClient.refetchQueries([SUMMARY_QUERY]);
+
     },
   });
 

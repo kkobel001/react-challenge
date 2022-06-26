@@ -3,15 +3,13 @@ import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Grid, Typography } from '@mui/material';
-import { CategoryCell, Money, Card,  } from 'ui';
-import { Loader } from '../atoms/Loader';
-import { Error } from '../atoms/Error';
+import { CategoryCell, Money, Card,Loader, Error } from 'ui';
 import { SummaryService } from 'api';
 import { SUMMARY_QUERY } from 'queryKeys';
 import { formatCentsToDollars } from 'utils';
 
 export const SummaryChartWidget = () => {
-const { isLoading, error, data } = useQuery(
+  const { isLoading, error, data } = useQuery(
     SUMMARY_QUERY,
     () => SummaryService.findAll(),
     {

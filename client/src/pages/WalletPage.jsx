@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { LedgerWidget, Page } from 'ui';
+import { LedgerWidget, Page, BudgetChartWidget, SummaryChartWidget } from 'ui';
 
 // TASK 1 - prepare dashboard grid  with dummy components
 export const WalletPage = () => (
@@ -11,10 +11,10 @@ export const WalletPage = () => (
       </Grid>
       <Grid container item xs={12} md={4} spacing={3}>
         <Grid item xs={12}>
-          {/*  TODO in task 5 */}
-        </Grid>
+        <SummaryChartWidget/>       
+     </Grid>
         <Grid item xs={12}>
-          {/*  TODO in task 5 */}
+          <BudgetChartWidget/>
         </Grid>
       </Grid>
     </Grid>
