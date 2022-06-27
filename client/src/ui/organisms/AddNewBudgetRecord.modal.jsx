@@ -1,6 +1,7 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 import { PropTypes } from 'prop-types';
 import { Box, Modal, CategoryField, Loader, Error, NoContent } from 'ui';
 import { formatDollarsToCents } from 'utils';
@@ -8,10 +9,17 @@ import { PARTIAL_CATEGORIES_QUERY, BUDGET_QUERY } from 'queryKeys';
 import { LedgerService, CategoryService } from 'api';
 import { TextField } from '@mui/material';
 
-const transitionKeys = {
-  income: 'wpływ',
-  expense: 'wydatek',
-};
+const translationKeys ={
+  income: {
+    title: 'wplyw',
+    successMessage: 'Wpływ został dodany',
+  },
+  expense :{
+    title: 'wydatek',
+    successMessage: 'Wydatek zostal zapisany'
+  }
+}
+
 
 export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
   const queryClient = useQueryClient();
@@ -26,9 +34,10 @@ export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
     data: categories,
   } = useQuery(PARTIAL_CATEGORIES_QUERY, () => CategoryService.findAll());
 
-  const mutation = useMutation(
+  const {mutate : saveRecordMutation} = useMutationWithFeedback(
     (requestBody) => LedgerService.create({ requestBody }),
     {
+      successMessage : 'Budzet zostal zdefiniowany',
       onSuccess: async () => {
         await queryClient.refetchQueries([PARTIAL_CATEGORIES_QUERY]);
         await queryClient.refetchQueries([BUDGET_QUERY]);
@@ -37,7 +46,7 @@ export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
     },
   );
   const onSubmit = async (formData) => {
-    mutation.mutate({
+    saveRecordMutation({
       amountInCents: formatDollarsToCents(formData.amount),
       categoryId: formData.categoryId,
     });

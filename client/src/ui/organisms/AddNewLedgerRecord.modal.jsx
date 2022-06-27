@@ -1,17 +1,30 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 import { Box, TextField } from '@mui/icons-material';
 import { Modal, CategoryField, Loader, Error, NoContent } from 'ui';
 import { formatDollarsToCents } from 'utils';
 import { LedgerService, CategoryService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { CATEGORIES_QUERY, BUDGET_QUERY, LEDGER_QUERY, SUMMARY_QUERY } from 'queryKeys';
+import {
+  CATEGORIES_QUERY,
+  BUDGET_QUERY,
+  LEDGER_QUERY,
+  SUMMARY_QUERY,
+} from 'queryKeys';
 import PropTypes from 'prop-types';
 
-const transitionKeys = {
-  income: 'wpływ',
-  expense: 'wydatek',
-};
+const translationKeys ={
+  income: {
+    title: 'wplyw',
+    successMessage: 'Wpływ został dodany',
+  },
+  expense :{
+    title: 'wydatek',
+    successMessage: 'Wydatek zostal zapisany'
+  }
+}
+
 
 export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
   const queryClient = useQueryClient();
@@ -26,9 +39,8 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
     data: categories,
   } = useQuery(CATEGORIES_QUERY, () => CategoryService.findAll());
 
-  const mutation = useMutation(
-    (requestBody) => LedgerService.create({ requestBody }),
-    {
+  const {mutate : saveRecord} = useMutationWithFeedback(
+    LedgerService.create,  {successMessage : translationKeys?.[type.toLowerCase()]?.successMessage,    
       onSuccess: async () => {
         await queryClient.refetchQueries([LEDGER_QUERY]);
         await queryClient.refetchQueries([BUDGET_QUERY]);
@@ -40,7 +52,7 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
   );
   const onSubmit = async (formData) => {
     if (!formState.isValid) return;
-    mutation.mutate({
+    saveRecord.mutate({
       title: formData.title,
       amountInCents: formatDollarsToCents(formData.amount),
       mode: type,
@@ -55,7 +67,7 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
       showModal={showModal}
       onClose={handleClose}
       canSubmit={handleSubmit(onSubmit)}
-      title={`Dodaj ${transitionKeys[type.toLowerCase()]}`}
+      title={`Dodaj ${translationKeys[type.toLowerCase()]}`}
     >
       {isLoading && <Loader />}
       {error && <Error error={error} />}

@@ -11,10 +11,10 @@ export const WalletPage = () => (
       </Grid>
       <Grid container item xs={12} md={4} spacing={3}>
         <Grid item xs={12}>
-        <SummaryChartWidget/>       
-     </Grid>
+          <SummaryChartWidget />
+        </Grid>
         <Grid item xs={12}>
-          <BudgetChartWidget/>
+          <BudgetChartWidget />
         </Grid>
       </Grid>
     </Grid>
