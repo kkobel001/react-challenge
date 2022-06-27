@@ -74,7 +74,6 @@ export const LedgerWidget = () => {
       await queryClient.refetchQueries([LEDGER_QUERY]);
       await queryClient.refetchQueries([BUDGET_QUERY]);
       await queryClient.refetchQueries([SUMMARY_QUERY]);
-
     },
   });
 

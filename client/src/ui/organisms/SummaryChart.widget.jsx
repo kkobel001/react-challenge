@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Grid, Typography } from '@mui/material';
-import { CategoryCell, Money, Card,Loader, Error } from 'ui';
+import { CategoryCell, Money, Card, Loader, Error } from 'ui';
 import { SummaryService } from 'api';
 import { SUMMARY_QUERY } from 'queryKeys';
 import { formatCentsToDollars } from 'utils';

@@ -1,14 +1,8 @@
 import React from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { BUDGET_QUERY, PARTIAL_CATEGORIES_QUERY } from 'queryKeys';
-import { BudgetService } from 'api';
-import { Loader } from 'ui/atoms/Loader';
-import { Error } from 'ui/atoms/Error';
-import { NoContent } from 'ui/atoms/NoContent';
-import { Money } from 'ui/atoms/Money';
-import { LocalizedDate } from 'ui/atoms/LocalizedDate';
-import { Table } from 'ui/molecules/table/Table';
-import { CategoryCell } from 'ui/molecules/CategoryCell';
+import {Loader,Error, NoContent, Money, LocalizedDate, Table, CategoryCell} from 'ui';
+import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 
 export const BudgetTableWidget = () => {
   const queryClient = useQueryClient();
@@ -16,13 +10,15 @@ export const BudgetTableWidget = () => {
     BudgetService.findAll(),
   );
 
-  const mutation = useMutation((ids) => BudgetService.remove({ ids }), {
+  const {mutation : deleteRecordsMutation} =useMutationWithFeedback( BudgetService.remove,{
+    successMessage: 'Element został usunięty',
+ 
     onSuccess: async () => {
       await queryClient.refetchQueries([BUDGET_QUERY]);
       await queryClient.refetchQueries([PARTIAL_CATEGORIES_QUERY]);
     },
   });
-  const deleteRecords = (ids) => mutation.mutate(ids);
+  const deleteRecords = (ids) => deleteRecordsMutation.mutate(ids);
 
   const tableDefinition = [
     {
