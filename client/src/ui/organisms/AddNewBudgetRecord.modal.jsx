@@ -1,24 +1,13 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 import { PropTypes } from 'prop-types';
-import { Box, Modal, CategoryField, Loader, Error, NoContent } from 'ui';
+import { Box, Modal, CategoryField, Loader, Error } from 'ui';
 import { formatDollarsToCents } from 'utils';
 import { PARTIAL_CATEGORIES_QUERY, BUDGET_QUERY } from 'queryKeys';
 import { LedgerService, CategoryService } from 'api';
 import { TextField } from '@mui/material';
-
-const translationKeys ={
-  income: {
-    title: 'wplyw',
-    successMessage: 'Wpływ został dodany',
-  },
-  expense :{
-    title: 'wydatek',
-    successMessage: 'Wydatek zostal zapisany'
-  }
-}
 
 
 export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
@@ -34,10 +23,10 @@ export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
     data: categories,
   } = useQuery(PARTIAL_CATEGORIES_QUERY, () => CategoryService.findAll());
 
-  const {mutate : saveRecordMutation} = useMutationWithFeedback(
+  const { mutate: saveRecordMutation } = useMutationWithFeedback(
     (requestBody) => LedgerService.create({ requestBody }),
     {
-      successMessage : 'Budzet zostal zdefiniowany',
+      successMessage: 'Budzet zostal zdefiniowany',
       onSuccess: async () => {
         await queryClient.refetchQueries([PARTIAL_CATEGORIES_QUERY]);
         await queryClient.refetchQueries([BUDGET_QUERY]);
@@ -69,7 +58,7 @@ export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
       {isLoading && <Loader />}
       {error && <Error error={error} />}
       {!isLoading && !error && !categories?.length ? (
-        'Wszystkie kategorie są przypisane do budetu.Aby zredefiniowac usuń jeden z wpisów.'
+        'Wszystkie kategorie są przypisane do budzetu.Aby zdefiniowac usuń jeden z wpisów.'
       ) : (
         <Box component="form" autoComplete="off">
           <Controller

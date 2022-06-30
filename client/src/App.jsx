@@ -9,21 +9,20 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-   
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <SnackbarProvider
-          maxSnack={3}
-          anchorOrigin={{
-            vertical:'bottom',
-             horizontal: 'right',
-      }}
-        >
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
         <QueryClientProvider client={queryClient}>
-        <Router />
+          <Router />
         </QueryClientProvider>
-        </SnackbarProvider>
-      </ThemeProvider>
+      </SnackbarProvider>
+    </ThemeProvider>
   );
 };
 

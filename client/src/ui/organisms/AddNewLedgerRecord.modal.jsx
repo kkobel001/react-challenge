@@ -2,29 +2,23 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 import { Box, TextField } from '@mui/icons-material';
-import { Modal, CategoryField, Loader, Error, NoContent } from 'ui';
+import { Modal, CategoryField, Loader, Error,  } from 'ui';
 import { formatDollarsToCents } from 'utils';
 import { LedgerService, CategoryService } from 'api';
-import { useQuery, useQueryClient, useMutation } from 'react-query';
-import {
-  CATEGORIES_QUERY,
-  BUDGET_QUERY,
-  LEDGER_QUERY,
-  SUMMARY_QUERY,
-} from 'queryKeys';
+import { useQuery, useQueryClient } from 'react-query';
+import {CATEGORIES_QUERY, BUDGET_QUERY, LEDGER_QUERY,SUMMARY_QUERY,} from 'queryKeys';
 import PropTypes from 'prop-types';
 
-const translationKeys ={
+const translationKeys = {
   income: {
     title: 'wplyw',
     successMessage: 'Wpływ został dodany',
   },
-  expense :{
+  expense: {
     title: 'wydatek',
-    successMessage: 'Wydatek zostal zapisany'
-  }
-}
-
+    successMessage: 'Wydatek zostal zapisany',
+  },
+};
 
 export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
   const queryClient = useQueryClient();
@@ -39,17 +33,15 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
     data: categories,
   } = useQuery(CATEGORIES_QUERY, () => CategoryService.findAll());
 
-  const {mutate : saveRecord} = useMutationWithFeedback(
-    LedgerService.create,  {successMessage : translationKeys?.[type.toLowerCase()]?.successMessage,    
-      onSuccess: async () => {
-        await queryClient.refetchQueries([LEDGER_QUERY]);
-        await queryClient.refetchQueries([BUDGET_QUERY]);
-        await queryClient.refetchQueries([SUMMARY_QUERY]);
-
-        handleClose();
-      },
+  const { mutate: saveRecord } = useMutationWithFeedback(LedgerService.create, {
+    successMessage: translationKeys?.[type.toLowerCase()]?.successMessage,
+    onSuccess: async () => {
+      await queryClient.refetchQueries([LEDGER_QUERY]);
+      await queryClient.refetchQueries([BUDGET_QUERY]);
+      await queryClient.refetchQueries([SUMMARY_QUERY]);
+      handleClose();
     },
-  );
+  });
   const onSubmit = async (formData) => {
     if (!formState.isValid) return;
     saveRecord.mutate({
@@ -72,7 +64,7 @@ export const AddNewLedgerRecord = ({ showModal, onClose, type }) => {
       {isLoading && <Loader />}
       {error && <Error error={error} />}
       {!isLoading && !error && !categories?.length ? (
-        'Wszystkie kategorie są przypisane do budetu.Aby zredefiniowac usuń jeden z wpisów.'
+        'Wszystkie kategorie są przypisane do budzetu.Aby zdefiniowac usuń jeden z wpisów.'
       ) : (
         <Box component="form" autoComplete="off">
           <Controller
