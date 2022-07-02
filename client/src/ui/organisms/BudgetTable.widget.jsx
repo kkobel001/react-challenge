@@ -1,7 +1,15 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { BUDGET_QUERY, PARTIAL_CATEGORIES_QUERY } from 'queryKeys';
-import {Loader,Error, NoContent, Money, LocalizedDate, Table, CategoryCell} from 'ui';
+import {
+  Loader,
+  Error,
+  NoContent,
+  Money,
+  LocalizedDate,
+  Table,
+  CategoryCell,
+} from 'ui';
 import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 
 export const BudgetTableWidget = () => {
@@ -10,14 +18,17 @@ export const BudgetTableWidget = () => {
     BudgetService.findAll(),
   );
 
-  const {mutation : deleteRecordsMutation} =useMutationWithFeedback( BudgetService.remove,{
-    successMessage: 'Element został usunięty',
- 
-    onSuccess: async () => {
-      await queryClient.refetchQueries([BUDGET_QUERY]);
-      await queryClient.refetchQueries([PARTIAL_CATEGORIES_QUERY]);
+  const { mutation: deleteRecordsMutation } = useMutationWithFeedback(
+    BudgetService.remove,
+    {
+      successMessage: 'Element został usunięty',
+
+      onSuccess: async () => {
+        await queryClient.refetchQueries([BUDGET_QUERY]);
+        await queryClient.refetchQueries([PARTIAL_CATEGORIES_QUERY]);
+      },
     },
-  });
+  );
   const deleteRecords = (ids) => deleteRecordsMutation.mutate(ids);
 
   const tableDefinition = [

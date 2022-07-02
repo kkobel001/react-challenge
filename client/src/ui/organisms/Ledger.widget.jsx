@@ -2,15 +2,7 @@ import React, { useState } from 'react';
 import { LEDGER_QUERY, BUDGET_QUERY, SUMMARY_QUERY } from 'queryKeys';
 import { LedgerService } from 'api';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { Money } from 'ui/atoms/Money';
-import { Button } from 'ui/atoms/Button';
-import { LocalizedDate } from 'ui/atoms/LocalizedDate';
-import { Table } from 'ui/molecules/table/Table';
-import { Loader } from 'ui/atoms/Loader';
-import { ActionHeader, Card } from 'ui';
-import { Error } from 'ui/atoms/Error';
-import { NoContent } from 'ui/atoms/NoContent';
-import { CategoryCell } from 'ui/molecules/CategoryCell';
+import { ActionHeader, Card, LocalizedDate, Table, Loader, Error, Money, Button, NoContent, CategoryCell } from 'ui';
 import Box from '@mui/material/Box';
 import { theme } from 'theme';
 import { AddNewLedgerRecord } from './AddNewLedgerRecord.modal';
@@ -50,7 +42,6 @@ export const LedgerWidget = () => {
         if (row.mode === 'INCOME')
           return (
             <Box sx={{ color: theme.palette.success.main }}>
-              {' '}
               + <Money inCents={row.amountInCents} />
             </Box>
           );

@@ -70,7 +70,6 @@ export const AppBar = ({ routing }) => {
               )}
             </Menu>
           </Box>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <img alt="DareIT Challenge Logo" src={DareItLogo} height={40} />
           </Box>
