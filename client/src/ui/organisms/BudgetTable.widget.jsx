@@ -1,7 +1,15 @@
 import React from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { BUDGET_QUERY, PARTIAL_CATEGORIES_QUERY } from 'queryKeys';
-import { Loader, Error, NoContent, Money, LocalizedDate,Table,CategoryCell,} from 'ui';
+import {
+  Loader,
+  Error,
+  NoContent,
+  Money,
+  LocalizedDate,
+  Table,
+  CategoryCell,
+} from 'ui';
 import { useMutationWithFeedback } from 'hooks/useMutationWithFeedback';
 
 export const BudgetTableWidget = () => {

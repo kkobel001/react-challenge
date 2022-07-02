@@ -9,7 +9,6 @@ import { PARTIAL_CATEGORIES_QUERY, BUDGET_QUERY } from 'queryKeys';
 import { LedgerService, CategoryService } from 'api';
 import { TextField } from '@mui/material';
 
-
 export const AddNewBudgetRecord = ({ showModal, onClose, type }) => {
   const queryClient = useQueryClient();
 
